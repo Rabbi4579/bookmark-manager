@@ -3,6 +3,7 @@ const formBookmark = document.getElementById('bookmarkForm')
 const titleInput = document.getElementById('title')
 const urlInput = document.getElementById('url')
 const bookmarkList = document.getElementById('bookmarkList')
+const toggleBtn = document.getElementById('toggleTheme')
 
 const bookmarks = [];
 
@@ -58,4 +59,24 @@ bookmarkList.addEventListener('click', (e) =>{
 
 function savedTolocalStorage(){
     localStorage.setItem("books", JSON.stringify(bookmarks))
+}
+
+
+// toggle list and dark theme
+
+window.addEventListener('DOMContentLoaded', () =>{
+    const saved = localStorage.getItem('theme');
+    displayTheme(saved)
+})
+
+toggleBtn.addEventListener('click', () =>{
+    const currentThme = document.body.classList.contains('dark') ? 'dark' : 'light';
+    const newTheme = currentThme === 'light' ? 'dark' : 'light';
+    displayTheme(newTheme)
+})
+
+function displayTheme(theme){
+    document.body.classList.remove('light', 'dark');
+    document.body.classList.add(theme)
+    localStorage.setItem('theme', theme)
 }
